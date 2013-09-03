@@ -70,6 +70,10 @@
     <orderEntry type="jdk" jdkName="Android 4.2.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="support-v4-13.0.0" level="project" />
+    <orderEntry type="library" exported="" name="androidannotations-api-2.7" level="project" />
+    <orderEntry type="library" exported="" name="codemodel-2.4.1" level="project" />
+    <orderEntry type="library" exported="" name="androidannotations-2.7" level="project" />
+    <orderEntry type="library" exported="" name="sugar-1.2" level="project" />
   </component>
 </module>
 
