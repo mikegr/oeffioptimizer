@@ -1,7 +1,7 @@
 package com.mintplex.oeffioptimizer;
 
+import com.mintplex.oeffioptimizer.model.Connections;
 import com.mintplex.oeffioptimizer.model.Steige;
-import com.mintplex.oeffioptimizer.model.Transfer;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface Model {
 
     public List<Steige> getSteige(long haltestellenId);
 
-    public List<Transfer> getTransfers(long steigId);
+    public List<Connections> getTransfers(long steigId);
 
 
 

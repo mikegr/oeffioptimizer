@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mintplex.oeffioptimizer.model.Connections;
+import com.mintplex.oeffioptimizer.model.Lift;
 import com.mintplex.oeffioptimizer.model.Steige;
 
 import java.util.List;
@@ -34,7 +36,10 @@ public class HaltestellenFragment extends Fragment {
 
         List<Steige> steige = Steige.find(Steige.class, "fk_haltestellen_id = ?", Long.toString(id));
 
+
         for (Steige s: steige) {
+
+
             addSteig(inflater, steigeContainer, s);
         }
         return view;
@@ -45,6 +50,25 @@ public class HaltestellenFragment extends Fragment {
         t(view, R.id.platform_header_line, s.linienName);
         t(view, R.id.platform_header_direction, s.richtungName);
         steigeContainer.addView(view);
+
+        ViewGroup container = (ViewGroup) view.findViewById(R.id.platform_header_transfers);
+
+        List<Connections> conns = Connections.find(Connections.class, "fk_steig_id = ? ", Long.toString(s.getId()));
+        for(Connections c:conns) {
+            View transfer = li.inflate(R.layout.tranfer_item, container, false);
+
+            if (c.transferId != null) {
+                t(transfer, R.id.tranfer_item_line, c.transferId.linienName);
+                t(transfer, R.id.tranfer_item_direction, c.transferId.richtungName);
+            }
+            if (c.fkExit != null) {
+                t(transfer, R.id.tranfer_item_exit, c.fkExit.name);
+            }
+            t(transfer, R.id.tranfer_item_symbols, c.symbols);
+            t(transfer, R.id.tranfer_item_hint, c.hint);
+            container.addView(transfer);
+        }
+
     }
 
 
