@@ -15,6 +15,7 @@ import com.mintplex.oeffioptimizer.model.Lift;
 import com.mintplex.oeffioptimizer.model.Steige;
 import com.orm.SugarRecord;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,14 +47,17 @@ public class HaltestellenFragment extends Fragment {
         List<Steige> steige = Steige.find(Steige.class, "fk_haltestellen_id = ? ORDER BY fk_linien_id", Long.toString(id));
         Map<Steige, SteigInfo> adapterData = new HashMap<Steige, SteigInfo>();
         
+        List<Steige> using = new ArrayList<Steige>();
         for (Steige s: steige) {
         	SteigInfo info = new SteigInfo();
+        	if (! s.linienName.startsWith("U")) continue;
         	info.connections = Connections.find(Connections.class, "fk_steig_id = ? ", Long.toString(s.getId()));
         	info.exits = Exitinfo.find(Exitinfo.class, "fk_steig_id = ? ", Long.toString(s.getId()));
         	info.lifts = Lift.find(Lift.class, "fk_steig_id = ? ", Long.toString(s.getId()));
+        	using.add(s);
         	adapterData.put(s, info);        	
         }
-        adapter.setData(adapterData);
+        adapter.setData(using, adapterData);
         listView.setAdapter(adapter);
         
         return view;
@@ -75,11 +79,11 @@ public class HaltestellenFragment extends Fragment {
 				return connections.get(childPosition);
 			}
 			if (childPosition < connections.size() + exits.size()) {
-				return exits.get(connections.size() + childPosition);
+				return exits.get(childPosition - connections.size());
 			}
 			
 			if (childPosition < connections.size() + exits.size() + lifts.size()) {
-				return lifts.get(connections.size() + exits.size() + childPosition);
+				return lifts.get(childPosition - connections.size() - exits.size());
 			}
 			return null;
 		}

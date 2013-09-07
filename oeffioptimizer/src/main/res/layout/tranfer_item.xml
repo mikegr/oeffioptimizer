@@ -2,66 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-    android:paddingRight="?attr/listPreferredItemPaddingRight" >
+    android:orientation="horizontal"
+    style="@style/listItemStyle"
+     >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/tranfer_item_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:background="@drawable/line_bg"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/tranfer_item_direction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/tranfer_item_symbols"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:orientation="horizontal" />
-    </LinearLayout>
+            android:layout_gravity="center_horizontal|top"
+            android:orientation="horizontal" >
 
-    <LinearLayout
-        android:id="@+id/tranfer_item_exit_container"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tranfer_item_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:background="@drawable/line_bg"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ImageView
+            <TextView
+                android:id="@+id/tranfer_item_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tranfer_item_exit_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/exit" />
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/exit" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Ausgang" />
+
+            <TextView
+                android:id="@+id/tranfer_item_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ausgang" />
-
-        <TextView
-            android:id="@+id/tranfer_item_exit"
+            android:id="@+id/tranfer_item_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tranfer_item_hint"
+    <LinearLayout
+        android:id="@+id/tranfer_item_symbols"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal" />
 
 </LinearLayout>

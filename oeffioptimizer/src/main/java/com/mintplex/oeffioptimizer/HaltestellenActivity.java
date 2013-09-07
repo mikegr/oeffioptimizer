@@ -25,6 +25,8 @@ public class HaltestellenActivity extends ActionBarActivity {
         
         getSupportActionBar().setTitle(Haltestellen.findById(Haltestellen.class, id).name);
         
+        if (savedInstanceState != null) return;
+        
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content, HaltestellenFragment.create(id));
         ft.commit();

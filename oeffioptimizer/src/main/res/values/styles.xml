@@ -1,4 +1,5 @@
-<resources>
+<resources
+    >
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -15,6 +16,15 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="listItemPaddingTop">2dp</item>
+        <item name="listItemPaddingBottom">2dp</item>
     </style>
 
+    
+    <style name="listItemStyle">
+        <item name="android:paddingLeft">?attr/listPreferredItemPaddingLeft</item>
+    	<item name="android:paddingRight">?attr/listPreferredItemPaddingRight</item>
+    	<item name="android:paddingTop">?attr/listItemPaddingTop</item>
+    	<item name="android:paddingBottom">?attr/listItemPaddingBottom</item>
+    </style>
 </resources>

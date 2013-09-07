@@ -31,9 +31,9 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 		this.inflater = inflater;
 	}
 
-	public void setData(Map<Steige, SteigInfo> adapterData) {
+	public void setData(List<Steige> steige, Map<Steige, SteigInfo> adapterData) {
+		this.steigList = steige;
 		this.data = adapterData;
-		this.steigList = new ArrayList<Steige>(adapterData.keySet());
 	}
 	
 	@Override
@@ -119,6 +119,7 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.exit, parent, false);
 			}
+			t(convertView, R.id.exit_name, info.fkExitId.name);
 			symbols(inflater, convertView, R.id.exit_symbols, info.symbols);
 			hint(convertView, R.id.exit_hint, info.hint);
 			
@@ -180,7 +181,7 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 	@Override
 	public int getChildType(int groupPosition, int childPosition) {
 		SteigInfo steigInfo = getSteigInfo(groupPosition);
-		Object child = steigInfo.getItem(childPosition).getId();
+		Object child = steigInfo.getItem(childPosition);
 		if (child instanceof Connections) {
 			return 0;
 		}
