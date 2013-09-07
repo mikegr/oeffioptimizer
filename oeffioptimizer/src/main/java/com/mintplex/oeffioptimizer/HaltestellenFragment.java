@@ -5,14 +5,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mintplex.oeffioptimizer.model.Connections;
+import com.mintplex.oeffioptimizer.model.Exitinfo;
 import com.mintplex.oeffioptimizer.model.Lift;
 import com.mintplex.oeffioptimizer.model.Steige;
+import com.orm.SugarRecord;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mike on 03.09.13.
@@ -27,57 +32,60 @@ public class HaltestellenFragment extends Fragment {
     }
 
     long id;
+    
+    ExpandableListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_station, container, false);
+        
+        listView = (ExpandableListView) view.findViewById(R.id.fragment_station_list);
 
-        LinearLayout steigeContainer = (LinearLayout) view.findViewById(R.id.fragment_station_container);
+        HaltestellenAdapter adapter = new HaltestellenAdapter(getLayoutInflater(null));
 
-        List<Steige> steige = Steige.find(Steige.class, "fk_haltestellen_id = ?", Long.toString(id));
-
-
+        List<Steige> steige = Steige.find(Steige.class, "fk_haltestellen_id = ? ORDER BY fk_linien_id", Long.toString(id));
+        Map<Steige, SteigInfo> adapterData = new HashMap<Steige, SteigInfo>();
+        
         for (Steige s: steige) {
-
-
-            addSteig(inflater, steigeContainer, s);
+        	SteigInfo info = new SteigInfo();
+        	info.connections = Connections.find(Connections.class, "fk_steig_id = ? ", Long.toString(s.getId()));
+        	info.exits = Exitinfo.find(Exitinfo.class, "fk_steig_id = ? ", Long.toString(s.getId()));
+        	info.lifts = Lift.find(Lift.class, "fk_steig_id = ? ", Long.toString(s.getId()));
+        	adapterData.put(s, info);        	
         }
+        adapter.setData(adapterData);
+        listView.setAdapter(adapter);
+        
         return view;
+        
+    }
+    
+    
+    public static class SteigInfo {
+    	public List<Connections> connections;
+    	public List<Lift> lifts;
+    	public List<Exitinfo> exits;
+    	
+		public int getCount() {
+			return connections.size() + lifts.size() + exits.size();
+		}
+
+		public SugarRecord<?> getItem(int childPosition) {
+			if (childPosition < connections.size()) {
+				return connections.get(childPosition);
+			}
+			if (childPosition < connections.size() + exits.size()) {
+				return exits.get(connections.size() + childPosition);
+			}
+			
+			if (childPosition < connections.size() + exits.size() + lifts.size()) {
+				return lifts.get(connections.size() + exits.size() + childPosition);
+			}
+			return null;
+		}
     }
 
-    private void addSteig(LayoutInflater li, LinearLayout steigeContainer, Steige s) {
-        View view = li.inflate(R.layout.platform_header, steigeContainer, false);
-        t(view, R.id.platform_header_line, s.linienName);
-        t(view, R.id.platform_header_direction, s.richtungName);
-        steigeContainer.addView(view);
 
-        ViewGroup container = (ViewGroup) view.findViewById(R.id.platform_header_transfers);
-
-        List<Connections> conns = Connections.find(Connections.class, "fk_steig_id = ? ", Long.toString(s.getId()));
-        for(Connections c:conns) {
-            View transfer = li.inflate(R.layout.tranfer_item, container, false);
-
-            if (c.transferId != null) {
-                t(transfer, R.id.tranfer_item_line, c.transferId.linienName);
-                t(transfer, R.id.tranfer_item_direction, c.transferId.richtungName);
-            }
-            if (c.fkExit != null) {
-                t(transfer, R.id.tranfer_item_exit, c.fkExit.name);
-            }
-            t(transfer, R.id.tranfer_item_symbols, c.symbols);
-            t(transfer, R.id.tranfer_item_hint, c.hint);
-            container.addView(transfer);
-        }
-
-    }
-
-
-    public void t(View view, int tvRes, String txt) {
-        TextView tv = (TextView) view.findViewById(tvRes);
-        if (tv != null) {
-            tv.setText(txt);
-        }
-    }
 
     public static HaltestellenFragment create(long id) {
         HaltestellenFragment f = new HaltestellenFragment();

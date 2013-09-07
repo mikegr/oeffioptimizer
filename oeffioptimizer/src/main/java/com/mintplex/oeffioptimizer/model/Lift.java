@@ -13,6 +13,7 @@ public class Lift extends SugarRecord<Lift> {
         super(context);
     }
 
-    String symbols;
+    public long id;
+    public String symbols;
 
 }

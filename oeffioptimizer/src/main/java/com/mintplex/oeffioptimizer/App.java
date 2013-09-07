@@ -2,7 +2,6 @@ package com.mintplex.oeffioptimizer;
 
 import android.util.Log;
 
-import com.googlecode.androidannotations.annotations.EApplication;
 import com.orm.SugarApp;
 
 import java.io.File;
@@ -34,7 +33,8 @@ public class App extends SugarApp {
     private void copyDataBase() throws IOException {
 
         File db = getDatabasePath(DB_NAME);
-        db.mkdirs();
+        db.delete();
+        db.getParentFile().mkdirs();
 
         //if (db.exists()) return;
 

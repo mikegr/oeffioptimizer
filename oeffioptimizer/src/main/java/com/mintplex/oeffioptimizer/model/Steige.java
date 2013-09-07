@@ -23,7 +23,9 @@ public class Steige extends SugarRecord<Steige> {
     public String STEIG_WGS84_LON;
     public String STAND;
     */
-
+	
+	public long id;
+	
     public String linienName;
     //public String HALTESTELLEN_NAME;
     public String richtungName;
@@ -31,5 +33,29 @@ public class Steige extends SugarRecord<Steige> {
     public Steige(Context context) {
         super(context);
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Steige other = (Steige) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+    
+    
 
 }

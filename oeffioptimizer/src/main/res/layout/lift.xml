@@ -7,15 +7,17 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:src="@drawable/lift"
         android:id="@+id/lift_icon"
         android:layout_gravity="center_horizontal|top" />
 
-    <TextView
+    <LinearLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/lift_symbols"
         android:layout_weight="1"
         android:gravity="right"
-        android:layout_gravity="" />
+        android:orientation="horizontal"
+         />
 </LinearLayout>

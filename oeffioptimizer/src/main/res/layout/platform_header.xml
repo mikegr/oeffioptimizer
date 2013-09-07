@@ -3,36 +3,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+    >
 
     <LinearLayout
-        android:background="#00ff00"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:textAppearance="?android:attr/textAppearance"
             android:id="@+id/platform_header_line"
             android:layout_gravity="left|center_vertical" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/platform_header_direction"
             android:layout_gravity="left|center_vertical" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
+    
+    <View 
         android:layout_width="match_parent"
-        android:id="@+id/platform_header_transfers">
+        android:layout_height="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/primary_1"
+         />
 
-    </LinearLayout>
 </LinearLayout>

@@ -1,65 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#00ffff"
-    >
+    android:orientation="vertical"
+    android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+    android:paddingRight="?attr/listPreferredItemPaddingRight" >
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top">
+        android:layout_gravity="center_horizontal|top"
+        android:orientation="horizontal" >
 
+        <TextView
+            android:id="@+id/tranfer_item_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/line_bg"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <TextView
+            android:id="@+id/tranfer_item_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tranfer_item_line"
-        android:layout_gravity="left|center_vertical" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tranfer_item_direction"
-        android:layout_gravity="center" />
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="right"
-        android:id="@+id/tranfer_item_symbols" />
+        <LinearLayout
+            android:id="@+id/tranfer_item_symbols"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="horizontal" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/tranfer_item_exit_container"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal" >
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ausgang"
-            android:id="@+id/textView" />
+            android:src="@drawable/exit" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tranfer_item_exit" />
+            android:text="Ausgang" />
 
-
+        <TextView
+            android:id="@+id/tranfer_item_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tranfer_item_hint"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tranfer_item_hint" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
