@@ -49,13 +49,10 @@ public class HaltestellenFragment extends Fragment {
         
         List<Steige> using = new ArrayList<Steige>();
         for (Steige s: steige) {
-        	SteigInfo info = new SteigInfo();
+        	SteigInfo info = SteigInfoAdapter.getSteigInfo(s);
         	if (! s.linienName.startsWith("U")) continue;
-        	info.connections = Connections.find(Connections.class, "fk_steig_id = ? ", Long.toString(s.getId()));
-        	info.exits = Exitinfo.find(Exitinfo.class, "fk_steig_id = ? ", Long.toString(s.getId()));
-        	info.lifts = Lift.find(Lift.class, "fk_steig_id = ? ", Long.toString(s.getId()));
+        	adapterData.put(s, info);      
         	using.add(s);
-        	adapterData.put(s, info);        	
         }
         adapter.setData(using, adapterData);
         listView.setAdapter(adapter);
@@ -64,6 +61,7 @@ public class HaltestellenFragment extends Fragment {
         
     }
     
+
     
     public static class SteigInfo {
     	public List<Connections> connections;

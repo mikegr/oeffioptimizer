@@ -27,8 +27,12 @@ public class Steige extends SugarRecord<Steige> {
 	public long id;
 	
     public String linienName;
+    public String haltestellenName;
     //public String HALTESTELLEN_NAME;
     public String richtungName;
+    public long fkLinienId;
+    public Haltestellen fkHaltestellenId;
+    public int reihenfolge;
 
     public Steige(Context context) {
         super(context);

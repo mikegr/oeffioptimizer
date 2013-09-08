@@ -15,4 +15,9 @@ public class Haltestellen extends SugarRecord<Haltestellen> {
 	public long id;
 	public String name;
 	
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

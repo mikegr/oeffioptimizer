@@ -1,15 +1,19 @@
 package com.mintplex.oeffioptimizer;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null) return;
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(android.R.id.content, MainFragment.create());
+        ft.commit();
     }
 
 

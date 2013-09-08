@@ -139,38 +139,22 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 		return null;
 	}
 	
-	private void symbols(LayoutInflater li, View view, int viewGroupRes, String symbols) {
-		ViewGroup layout = (ViewGroup) view.findViewById(viewGroupRes);
-		layout.removeAllViews();
-		String[] split = symbols.split("\\+");
-		for(String s:split) {
-			TextView tv = (TextView) li.inflate(R.layout.symbol, layout, false);
-			if (s.startsWith("V")) {
-				tv.setBackgroundResource(R.drawable.exit_bg_v);	
-			}
-			else if (s.startsWith("M")) {
-				tv.setBackgroundResource(R.drawable.exit_bg_m);
-			}
-			else if (s.startsWith("H")){
-				tv.setBackgroundResource(R.drawable.exit_bg_h);
-			}
-			else {
-				tv.setBackgroundResource(R.drawable.exit_bg);
-			}
-			tv.setText(s);
-			layout.addView(tv);
-		}
+
+
+	private void t(View convertView, int intRes, String txt) {
+		SteigInfoAdapter.t(convertView, intRes, txt);
+		
 	}
-	
-	private void hint(View convertView, int hintRes, String hint) {
-        TextView hintTv = (TextView) convertView.findViewById(hintRes); 
-        if (hint != null && hint.length() > 0 && ! hint.equals("-")) {
-        	hintTv.setText(hint);
-        	hintTv.setVisibility(View.VISIBLE);
-        }
-        else {
-        	hintTv.setVisibility(View.GONE);
-        }
+
+	private void hint(View convertView, int intRes, String hint) {
+		SteigInfoAdapter.hint(convertView, intRes, hint);
+		
+	}
+
+	private void symbols(LayoutInflater li, View view,
+			int intRes, String symbols) {
+		SteigInfoAdapter.symbols(li, view, intRes, symbols);
+		
 	}
 
 	@Override
@@ -194,14 +178,7 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 		return 0;
 	}
 	
-	
-    public TextView t(View view, int tvRes, String txt) {
-        TextView tv = (TextView) view.findViewById(tvRes);
-        if (tv != null) {
-            tv.setText(txt);
-        }
-        return tv;
-    }
+
     
     @Override
     public boolean hasStableIds() {
