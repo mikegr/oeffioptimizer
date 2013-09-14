@@ -20,6 +20,8 @@ import android.widget.ListView;
 
 public class StreckeFragment extends AbstractFragment {
 
+    public static final String TAG = "STRECKE";
+
 	public static StreckeFragment create(long id) {
 		StreckeFragment f = new StreckeFragment();
 		Bundle b = new Bundle();
@@ -48,7 +50,11 @@ public class StreckeFragment extends AbstractFragment {
 
 		List<Steige> nextSteige = (List<Steige>) Select.
 				from(Steige.class).
-				where(Condition.prop("fk_linien_id").eq(steig.fkLinienId), Condition.prop("reihenfolge").gt(steig.reihenfolge)).list();
+				where(
+                        Condition.prop("fk_linien_id").eq(steig.fkLinienId),
+                        Condition.prop("reihenfolge").gt(steig.reihenfolge),
+                        Condition.prop("richtung").eq(steig.richtung))
+                .list();
 		
 		list.setAdapter(new ArrayAdapter<Steige>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, nextSteige));
 		list.setOnItemClickListener(new OnItemClickListener() {

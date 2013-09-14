@@ -20,8 +20,9 @@ public class SteigInfoAdapter extends BaseAdapter {
 	Context ctx;
 	LayoutInflater inflater;
 
-	public SteigInfoAdapter(Context ctx) {
+	public SteigInfoAdapter(Context ctx, SteigInfo steigInfo) {
 		this.ctx = ctx;
+        this.steigInfo = steigInfo;
 		this.inflater = (LayoutInflater) ctx
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -55,9 +56,11 @@ public class SteigInfoAdapter extends BaseAdapter {
 				convertView = inflater.inflate(R.layout.tranfer_item, parent,
 						false);
 			}
-			t(convertView, R.id.tranfer_item_line, c.transferId.linienName);
-			t(convertView, R.id.tranfer_item_direction,
-					c.transferId.richtungName);
+            if (c.transferId != null) {
+                t(convertView, R.id.tranfer_item_line, c.transferId.linienName);
+                t(convertView, R.id.tranfer_item_direction,
+                        c.transferId.richtungName);
+            }
 
 			View exitContainer = convertView
 					.findViewById(R.id.tranfer_item_exit_container);

@@ -26,19 +26,29 @@ public class MainFragment extends Fragment {
 	Haltestellen selected;
 	ListView recentList;
 
+    Button abfahrtButton;
+    AutoCompleteTextView abfahrtComplete;
+
+    Haltestellen abfahrt;
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_main, container, false);
 		autoComplete = (AutoCompleteTextView) view
 				.findViewById(R.id.fragment_main_autocomplete);
-		
-		List<Haltestellen> list = Haltestellen.listAll(Haltestellen.class);
+        autoCompleteButton = (Button) view
+                .findViewById(R.id.fragment_main_autocomplete_button);
+        abfahrtComplete = (AutoCompleteTextView) view.findViewById(R.id.fragment_main_abfahrt_autocomplete);
+        abfahrtButton = (Button) view.findViewById(R.id.fragment_main_abfahrt_autocomplete_button);
+
+        List<Haltestellen> list = Haltestellen.listAll(Haltestellen.class);
 		
 		autoComplete.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
-		autoCompleteButton = (Button) view
-				.findViewById(R.id.fragment_main_autocomplete_button);
-		
+        abfahrtComplete.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
+
+
 		autoComplete.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -51,8 +61,8 @@ public class MainFragment extends Fragment {
 				selected = null;
 				autoCompleteButton.setEnabled(false);
 			}
-			
 		});
+
 		autoComplete.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -62,6 +72,14 @@ public class MainFragment extends Fragment {
 				
 			}
 		});
+
+        abfahrtComplete.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                abfahrt = (Haltestellen) adapterView.getItemAtPosition(i);
+                abfahrtButton.setEnabled(true);
+            }
+        });
 		autoCompleteButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -69,6 +87,13 @@ public class MainFragment extends Fragment {
 				HaltestellenActivity.start(getActivity(), selected.id);
 			}
 		});
+        abfahrtButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AbfahrtenActivity.start(getActivity(), abfahrt.id);
+            }
+        });
+
 		autoCompleteButton.setEnabled(false);
 		
 		recentList = (ListView) view.findViewById(R.id.fragment_main_list_recent);

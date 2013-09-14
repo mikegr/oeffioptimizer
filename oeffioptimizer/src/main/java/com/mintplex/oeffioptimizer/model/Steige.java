@@ -30,6 +30,7 @@ public class Steige extends SugarRecord<Steige> {
     public String haltestellenName;
     //public String HALTESTELLEN_NAME;
     public String richtungName;
+    public String richtung;
     public long fkLinienId;
     public Haltestellen fkHaltestellenId;
     public int reihenfolge;
@@ -59,7 +60,9 @@ public class Steige extends SugarRecord<Steige> {
 			return false;
 		return true;
 	}
-    
-    
 
+    @Override
+    public String toString() {
+        return fkHaltestellenId.name;
+    }
 }

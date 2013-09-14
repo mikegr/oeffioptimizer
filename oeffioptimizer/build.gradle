@@ -16,7 +16,6 @@ dependencies {
     compile 'com.android.support:support-v4:13.0.+'
     compile 'com.googlecode.androidannotations:androidannotations-api:2.7'
     compile "com.googlecode.androidannotations:androidannotations:2.7"
-    compile files('libs/sugar-1.2.jar')
 	compile "com.android.support:appcompat-v7:18.0.+"
 }
 

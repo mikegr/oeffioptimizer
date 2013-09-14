@@ -53,7 +53,7 @@ public class AbfahrtenFragment extends AbstractFragment {
 		for(Steige s:steige) {
 			linien.add(s.linienName);
 			List<Steige> mapList = map.get(s.linienName);
-			if (list == null) {
+			if (mapList == null) {
 				mapList = new ArrayList<Steige>();
 				map.put(s.linienName, mapList);	
 			}
@@ -65,14 +65,14 @@ public class AbfahrtenFragment extends AbstractFragment {
 		adapter.setData(sorted, map);
 		list.setAdapter(adapter);
 		
-		list.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Steige steig = (Steige) arg0.getItemAtPosition(arg2);
-				StreckeActivity.start(getActivity(), steig.id);
-			}
-		});
+		list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
+                Steige steig = (Steige) expandableListView.getExpandableListAdapter().getChild(i, i2);
+                StreckeActivity.start(getActivity(), steig.id);
+                return true;
+            }
+        });
 		return view;
 	}
 	
