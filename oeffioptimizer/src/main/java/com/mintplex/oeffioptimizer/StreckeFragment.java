@@ -46,7 +46,7 @@ public class StreckeFragment extends AbstractFragment {
 		Steige steig = Steige.findById(Steige.class, id);
 		long line = steig.fkLinienId;
 
-		List<Steige> nextSteige = Select.
+		List<Steige> nextSteige = (List<Steige>) Select.
 				from(Steige.class).
 				where(Condition.prop("fk_linien_id").eq(steig.fkLinienId), Condition.prop("reihenfolge").gt(steig.reihenfolge)).list();
 		

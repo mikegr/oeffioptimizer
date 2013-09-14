@@ -97,9 +97,11 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 			if (convertView == null) { 
 				convertView = inflater.inflate(R.layout.tranfer_item, parent, false);
 			}
-            t(convertView, R.id.tranfer_item_line, c.transferId.linienName);
-            t(convertView, R.id.tranfer_item_direction, c.transferId.richtungName);
-            
+            if (c.transferId != null) {
+                t(convertView, R.id.tranfer_item_line, c.transferId.linienName);
+                t(convertView, R.id.tranfer_item_direction, c.transferId.richtungName);
+            }
+
             View exitContainer = convertView.findViewById(R.id.tranfer_item_exit_container);
             if (c.fkExit != null) {
             	t(exitContainer, R.id.tranfer_item_exit, c.fkExit.name);

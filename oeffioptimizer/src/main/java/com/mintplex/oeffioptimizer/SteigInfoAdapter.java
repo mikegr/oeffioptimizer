@@ -100,6 +100,7 @@ public class SteigInfoAdapter extends BaseAdapter {
 			String symbols) {
 		ViewGroup layout = (ViewGroup) view.findViewById(viewGroupRes);
 		layout.removeAllViews();
+        if (symbols == null) return;
 		String[] split = symbols.split("\\+");
 		for (String s : split) {
 			TextView tv = (TextView) li.inflate(R.layout.symbol, layout, false);
