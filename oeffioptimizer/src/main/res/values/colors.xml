@@ -12,5 +12,18 @@
     <color name="front">#0C5CA5</color>
     <color name="middle">#FF4F00</color>
     <color name="back">#E7003E</color>
-    
+
+    <color name="ubahn_u1">#e20a16</color>
+    <color name="ubahn_u2">#764785</color>
+    <color name="ubahn_u3">#f76013</color>
+    <color name="ubahn_u4">#008131</color>
+    <color name="ubahn_u6">#88471f</color>
+
+    <color name="bim">#808080</color>
+    <color name="bus">#ffcc00</color>
+    <color name="nightline_bg">#000</color>
+    <color name="nightline_fg">#ffcc00</color>
+
+    <color name="s_bahn">#392a95</color>
+
 </resources>

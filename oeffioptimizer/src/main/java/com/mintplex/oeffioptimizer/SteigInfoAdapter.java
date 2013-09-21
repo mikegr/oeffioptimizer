@@ -66,7 +66,10 @@ public class SteigInfoAdapter extends BaseAdapter {
 						false);
 			}
             if (c.transferId != null) {
-                t(convertView, R.id.tranfer_item_line, c.transferId.linienName);
+                String name= c.transferId.linienName;
+                TextView line = t(convertView, R.id.tranfer_item_line, name);
+                line.setBackgroundResource(getLineBackground(name));
+                line.setTextColor(convertView.getResources().getColor(getLineTextColor(name)));
                 t(convertView, R.id.tranfer_item_direction,
                         c.transferId.richtungName);
             }
@@ -154,6 +157,48 @@ public class SteigInfoAdapter extends BaseAdapter {
     	info.exits = Exitinfo.find(Exitinfo.class, "fk_steig_id = ? ", Long.toString(s.getId()));
     	info.lifts = Lift.find(Lift.class, "fk_steig_id = ? ", Long.toString(s.getId()));
     	return info;
+    }
+
+    public static int getLineBackground(String name) {
+        if (name.startsWith("U1")) {
+            return R.drawable.line_u1;
+        }
+        if (name.startsWith("U2")) {
+            return R.drawable.line_u2;
+        }
+        if (name.startsWith("U3")) {
+            return R.drawable.line_u3;
+        }
+        if (name.startsWith("U4")) {
+            return R.drawable.line_u4;
+        }
+        if (name.startsWith("U6")) {
+            return R.drawable.line_u6;
+        }
+        if (name.endsWith("A")) {
+            return R.drawable.line_bus;
+        }
+        if (name.endsWith("B")) {
+            return R.drawable.line_bus;
+        }
+        if (name.startsWith("S")) {
+            return R.drawable.line_sbahn;
+        }
+        if (name.startsWith("N")) {
+            return R.drawable.line_nightline;
+        }
+        return R.drawable.line_bim;
+    }
+
+    public static int getLineTextColor(String name) {
+        if (name.startsWith("N")) {
+            return R.color.nightline_fg;
+        }
+        if (name.endsWith("A") || name.endsWith("B")) {
+            return R.color.black;
+        }
+
+        return R.color.white;
     }
     
 }

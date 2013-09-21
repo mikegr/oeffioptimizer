@@ -154,7 +154,6 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 
 	private void t(View convertView, int intRes, String txt) {
 		SteigInfoAdapter.t(convertView, intRes, txt);
-		
 	}
 
 	private void hint(View convertView, int intRes, String hint) {
@@ -200,5 +199,9 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return false;
 	}
-    
+
+
+
+
+
 }
