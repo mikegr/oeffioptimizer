@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="url_routing">http://www.wienerlinien.at/ogd_routing/XML_TRIP_REQUEST2?outputFormat=json&amp;locationServerActive=1&amp;type_origin=stopID&amp;name_origin=%1$s&amp;type_destination=stopID&amp;name_destination=%2$s</string>
+</resources>

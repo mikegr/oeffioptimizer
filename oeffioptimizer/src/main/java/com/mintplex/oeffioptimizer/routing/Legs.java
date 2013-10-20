@@ -52,4 +52,9 @@ public class Legs implements Serializable {
 	public void setStopSeq(List<StopSeq> stopSeq){
 		this.stopSeq = stopSeq;
 	}
+	
+	public Points getLastPoint() {
+		List<Points> p = getPoints();
+		return p.get(p.size()-1);
+	}
 }

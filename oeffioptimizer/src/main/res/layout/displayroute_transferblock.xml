@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+    
+    <View 
+        android:id="@+id/displayroute_tranferblock_top"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        />
+
+    <TextView
+        android:id="@+id/displayroute_tranferblock_text"
+        android:padding="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <View 
+        android:id="@+id/displayroute_tranferblock_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        />
+
+</LinearLayout>

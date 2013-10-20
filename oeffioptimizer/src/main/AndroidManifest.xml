@@ -8,15 +8,20 @@
         android:minSdkVersion="7"
         android:targetSdkVersion="16" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".App"
-        >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.mintplex.oeffioptimizer.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.mintplex.oeffioptimizer.FromToFormActivity_"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,35 +29,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-       <activity
+        <activity
+            android:name="com.mintplex.oeffioptimizer.DisplayRouteActivity_"
+            android:label="Meine Route" >
+        </activity>
+        <activity
             android:name="com.mintplex.oeffioptimizer.HaltestellenActivity"
             android:label="@string/app_name" >
-       </activity> 
-       
-       <activity
+        </activity>
+        <activity
             android:name="com.mintplex.oeffioptimizer.AbfahrtenActivity"
             android:label="@string/app_name" >
-       </activity>
-       
-       <activity
+        </activity>
+        <activity
             android:name="com.mintplex.oeffioptimizer.StreckeActivity"
             android:label="@string/app_name" >
-       </activity>
-        
-       <activity
+        </activity>
+        <activity
             android:name="com.mintplex.oeffioptimizer.SteigInfoActivity"
             android:label="@string/app_name" >
-       </activity> 
-       
-       
-       
-                    
-        <meta-data android:name="DATABASE" android:value="oeffioptimizer.db" />
-        <meta-data android:name="VERSION" android:value="1" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.offieoptimizer.model" />
+        </activity>
 
+        <meta-data
+            android:name="DATABASE"
+            android:value="oeffioptimizer.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.offieoptimizer.model" />
     </application>
 
 </manifest>

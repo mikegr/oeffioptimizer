@@ -21,8 +21,9 @@ public class Haltestellen extends SugarRecord<Haltestellen> {
 		super(arg0);
 	}
 	
-	public long id;
+	public long id;	
 	public String name;
+	public String diva;
 	
 	
 	@Override

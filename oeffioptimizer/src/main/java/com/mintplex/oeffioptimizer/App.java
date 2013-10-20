@@ -9,15 +9,14 @@
  */
 package com.mintplex.oeffioptimizer;
 
-import android.util.Log;
-
-import com.orm.SugarApp;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+
+import com.orm.SugarApp;
 
 /**
  * Created by mike on 03.09.13.
@@ -30,11 +29,14 @@ public class App extends SugarApp {
     @Override
     public void onCreate() {
 
+    Log.setTAG("oeffioptimizer");
+    Log.setLogLevel(android.util.Log.VERBOSE);
+    
         try {
             copyDataBase();
         }
         catch (IOException ex) {
-            Log.d("", "Copy DB failed", ex);
+            Log.d("Copy DB failed", ex);
         }
         super.onCreate();
     }
