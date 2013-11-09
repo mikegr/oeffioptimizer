@@ -2,6 +2,7 @@ package com.mintplex.oeffioptimizer;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
@@ -13,6 +14,8 @@ public class DisplayRouteActivity extends AbstractActivity {
 
 	@AfterViews
 	public void afterViews() {
+		ActionBar bar = getSupportActionBar();
+		bar.setDisplayHomeAsUpEnabled(true);
 		setFragment(DisplayRouteFragment.create(trip), DisplayRouteFragment.TAG);
 	}
 
@@ -24,5 +27,7 @@ public class DisplayRouteActivity extends AbstractActivity {
 	
 	@Extra
 	Trip trip;
+
+	
 	
 }

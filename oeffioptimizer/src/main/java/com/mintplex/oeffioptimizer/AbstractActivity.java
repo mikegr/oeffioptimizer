@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 
 public class AbstractActivity extends ActionBarActivity {
 
@@ -29,5 +30,13 @@ public class AbstractActivity extends ActionBarActivity {
 		Intent i = new Intent(ctx, clazz);
 		i.putExtra("id", id);
 		ctx.startActivity(i);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
