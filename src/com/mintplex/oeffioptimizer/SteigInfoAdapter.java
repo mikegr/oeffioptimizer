@@ -76,12 +76,7 @@ public class SteigInfoAdapter extends BaseAdapter {
 
 			View exitContainer = convertView
 					.findViewById(R.id.tranfer_item_exit_container);
-			if (c.fkExit != null) {
-				t(exitContainer, R.id.tranfer_item_exit, c.fkExit.name);
-				exitContainer.setVisibility(View.VISIBLE);
-			} else {
-				exitContainer.setVisibility(View.GONE);
-			}
+			exitContainer.setVisibility(View.GONE);
 			symbols(inflater, convertView, R.id.tranfer_item_symbols, c.symbols);
 
 			hint(convertView, R.id.tranfer_item_hint, c.hint);
@@ -153,9 +148,11 @@ public class SteigInfoAdapter extends BaseAdapter {
 
     public static SteigInfo getSteigInfo(Steige s) {
     	SteigInfo info = new SteigInfo();
+    	/*
     	info.connections = Connections.find(Connections.class, "fk_steig_id = ? ", Long.toString(s.getId()));
     	info.exits = Exitinfo.find(Exitinfo.class, "fk_steig_id = ? ", Long.toString(s.getId()));
     	info.lifts = Lift.find(Lift.class, "fk_steig_id = ? ", Long.toString(s.getId()));
+    	*/
     	return info;
     }
 

@@ -11,6 +11,8 @@ package com.mintplex.oeffioptimizer;
 
 import java.util.List;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
 import com.mintplex.oeffioptimizer.model.Haltestellen;
 import com.mintplex.oeffioptimizer.model.Recent;
 
@@ -51,12 +53,18 @@ public class MainFragment extends Fragment {
                 .findViewById(R.id.fragment_main_autocomplete_button);
         abfahrtComplete = (AutoCompleteTextView) view.findViewById(R.id.fragment_main_abfahrt_autocomplete);
         abfahrtButton = (Button) view.findViewById(R.id.fragment_main_abfahrt_autocomplete_button);
-
-        List<Haltestellen> list = Haltestellen.listAll(Haltestellen.class);
-		
-		autoComplete.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
-        abfahrtComplete.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
-
+        
+        try {
+            DatabaseHelper helper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+    		Dao<Haltestellen, Integer> haltestellenDao = helper.getHaltestellenDao();
+    		List<Haltestellen> list = haltestellenDao.queryForAll();
+    		autoComplete.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
+            abfahrtComplete.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
+			
+		} catch (Exception e) {
+			Log.w("Reading stops failed", e);
+		}
+        
 
 		autoComplete.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override

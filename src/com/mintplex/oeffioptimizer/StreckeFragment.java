@@ -53,7 +53,7 @@ public class StreckeFragment extends AbstractFragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_strecke, container, false);
 		list = (ListView) view.findViewById(R.id.fragment_strecke_list);
-
+/*
 		Steige steig = Steige.findById(Steige.class, id);
 		long line = steig.fkLinienId;
 
@@ -75,6 +75,7 @@ public class StreckeFragment extends AbstractFragment {
 				SteigInfoActivity.start(getActivity(), s.id);
 			}
 		});
+		*/
 		return view;
 	}
 	

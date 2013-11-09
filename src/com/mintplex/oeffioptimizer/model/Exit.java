@@ -11,17 +11,24 @@ package com.mintplex.oeffioptimizer.model;
 
 import android.content.Context;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.orm.SugarRecord;
 
 /**
  * Created by mike on 03.09.13.
  */
 
-
+@DatabaseTable(tableName="exits")
 public class Exit extends SugarRecord<Exit> {
+	@DatabaseField(columnName="exit_id", id=true)
     public long id;
+	@DatabaseField(columnName="exit_name")
     public String name;
 
+
+	public Exit() {}
+	
     public Exit(Context context) {
         super(context);
     }

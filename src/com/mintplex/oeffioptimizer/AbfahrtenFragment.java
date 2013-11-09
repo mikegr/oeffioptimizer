@@ -56,6 +56,7 @@ public class AbfahrtenFragment extends AbstractFragment {
 		View view = inflater.inflate(R.layout.fragment_abfahrten, container, false);
 		list = (ExpandableListView) view.findViewById(R.id.fragment_abfahrten_list);
 		
+		/*
 		List<Steige> steige = Steige.find(Steige.class, "fk_haltestellen_id = ?", Long.toString(id));
 		Set<String> linien = new HashSet<String>();
 		HashMap<String, List<Steige>> map = new HashMap<String, List<Steige>>();
@@ -82,6 +83,7 @@ public class AbfahrtenFragment extends AbstractFragment {
                 return true;
             }
         });
+        */
 		return view;
 	}
 	

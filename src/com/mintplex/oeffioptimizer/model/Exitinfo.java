@@ -11,17 +11,27 @@ package com.mintplex.oeffioptimizer.model;
 
 import android.content.Context;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.orm.SugarRecord;
 
-public class Exitinfo extends SugarRecord<Exitinfo> {
+@DatabaseTable
+public class Exitinfo {
 
-	
-	public Exitinfo(Context arg0) {
-		super(arg0);
+	public Exitinfo() {
+		super();
 	}
 	
-	public long id;
+//	@DatabaseField(columnName="id")
+//	public long id;
+	
+	@DatabaseField(columnName="fk_steig_id")
+	public long fkSteigId;
+	
+	@DatabaseField(columnName="fk_exit_id", foreign=true)
 	public Exit fkExitId;
+	@DatabaseField(columnName="symbols")
 	public String symbols;
+	@DatabaseField(columnName="hint")
 	public String hint;
 }

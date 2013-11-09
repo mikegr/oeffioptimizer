@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.orm.SugarApp;
 
 /**
@@ -23,7 +23,7 @@ import com.orm.SugarApp;
  */
 public class App extends SugarApp {
 
-    private static String DB_NAME = "oeffioptimizer.db";
+    public static String DB_NAME = "oeffioptimizer.db";
 
 
     @Override

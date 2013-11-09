@@ -38,7 +38,7 @@ public class HaltestellenActivity extends AbstractActivity {
         id = getIntent().getLongExtra("id", 214460762);
 
         //setContentView(R.layout.activity_haltestellen);
-        
+        /*
         getSupportActionBar().setTitle(Haltestellen.findById(Haltestellen.class, id).name);
         
         if (savedInstanceState != null) return;
@@ -59,6 +59,7 @@ public class HaltestellenActivity extends AbstractActivity {
         	r.fkHaltestellenId = Haltestellen.findById(Haltestellen.class, id);
         	r.save();
         }
+        */
     }
     
     private long id;

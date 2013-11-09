@@ -52,7 +52,8 @@ public class HaltestellenFragment extends Fragment {
         listView = (ExpandableListView) view.findViewById(R.id.fragment_station_list);
 
         HaltestellenAdapter adapter = new HaltestellenAdapter(getLayoutInflater(null));
-
+        
+        /*
         List<Steige> steige = Steige.find(Steige.class, "fk_haltestellen_id = ? ORDER BY fk_linien_id", Long.toString(id));
         Map<Steige, SteigInfo> adapterData = new HashMap<Steige, SteigInfo>();
         
@@ -65,7 +66,7 @@ public class HaltestellenFragment extends Fragment {
         }
         adapter.setData(using, adapterData);
         listView.setAdapter(adapter);
-        
+        */
         return view;
         
     }
@@ -82,6 +83,7 @@ public class HaltestellenFragment extends Fragment {
 		}
 
 		public SugarRecord<?> getItem(int childPosition) {
+			/*
 			if (childPosition < connections.size()) {
 				return connections.get(childPosition);
 			}
@@ -92,6 +94,7 @@ public class HaltestellenFragment extends Fragment {
 			if (childPosition < connections.size() + exits.size() + lifts.size()) {
 				return lifts.get(childPosition - connections.size() - exits.size());
 			}
+			*/
 			return null;
 		}
     }

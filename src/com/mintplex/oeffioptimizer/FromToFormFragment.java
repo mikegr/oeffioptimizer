@@ -1,8 +1,11 @@
 package com.mintplex.oeffioptimizer;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -21,6 +24,9 @@ import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.ItemClick;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
 import com.mintplex.oeffioptimizer.model.Haltestellen;
 import com.mintplex.oeffioptimizer.routing.Routing;
 import com.mintplex.oeffioptimizer.routing.Trips;
@@ -42,11 +48,18 @@ public class FromToFormFragment extends Fragment {
 	@ViewById(R.id.fragment_fromtoform_list)
 	ListView list;
 	
+	
 	@AfterViews
-	public void afterViews() {
-		List<Haltestellen> list = Haltestellen.listAll(Haltestellen.class);
-		from.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
-        to.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
+	public void afterViews()  {
+		try {
+			DatabaseHelper helper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+			Dao<Haltestellen, Integer> haltestellenDao = helper.getHaltestellenDao();
+			List<Haltestellen> list = haltestellenDao.queryForAll();
+			from.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
+	        to.setAdapter(new ArrayAdapter<Haltestellen>(getActivity(), android.R.layout.simple_dropdown_item_1line, list));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         
         from.setOnItemClickListener(new OnItemClickListener() {
 

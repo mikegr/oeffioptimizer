@@ -38,7 +38,7 @@ public class SteigInfoFragment extends AbstractFragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_steiginfo, container, false);
 		list = (ListView) view.findViewById(R.id.fragment_steiginfo_list);
-
+/*
         Steige steig = Steige.findById(Steige.class, id);
 
         HaltestellenFragment.SteigInfo steifInfo = SteigInfoAdapter.getSteigInfo(steig);
@@ -46,6 +46,7 @@ public class SteigInfoFragment extends AbstractFragment {
 		SteigInfoAdapter adapter = new SteigInfoAdapter(getActivity(), steifInfo);
 
 		list.setAdapter(adapter);
+		*/
 		return view;
 	}
 }

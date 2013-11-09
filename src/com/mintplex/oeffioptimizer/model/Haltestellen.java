@@ -11,18 +11,26 @@ package com.mintplex.oeffioptimizer.model;
 
 import android.content.Context;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.orm.SugarRecord;
 
-public class Haltestellen extends SugarRecord<Haltestellen> {
+
+@DatabaseTable(tableName="haltestellen")
+public class Haltestellen {
 
 	
 	
-	public Haltestellen(Context arg0) {
-		super(arg0);
+	public Haltestellen() {
 	}
 	
-	public long id;	
+	@DatabaseField(columnName="HALTESTELLEN_ID", id=true)
+	public long id;
+	
+	@DatabaseField(columnName="NAME")
 	public String name;
+	
+	@DatabaseField(columnName="DIVA")
 	public String diva;
 	
 	

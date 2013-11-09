@@ -9,25 +9,37 @@
  */
 package com.mintplex.oeffioptimizer.model;
 
-import android.content.Context;
-
-import com.orm.SugarRecord;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Created by mike on 03.09.13.
  */
-public class Connections extends SugarRecord<Connections> {
+@DatabaseTable(tableName="co")
+public class Connections {
 
-
-
+	@DatabaseField(columnName="connection_id", id=true)
     public long id;
+	@DatabaseField(columnName="fk_steig_id")
     public long fkSteigId;
+	@DatabaseField(columnName="transfer_id", foreign=true)
     public Steige transferId;
-    public Exit fkExit;
+	
+    @DatabaseField(columnName="symbols")
     public String symbols;
+    @DatabaseField(columnName="hint")
     public String hint;
 
-    public Connections(Context context) {
-        super(context);
+    public Connections() {
+    }
+
+    public boolean isFront(){
+    	return symbols.contains("V");
+    }
+    public boolean isMiddle() {
+    	return symbols.contains("M");
+    }
+    public boolean isBack() {
+    	return symbols.contains("H");
     }
 }

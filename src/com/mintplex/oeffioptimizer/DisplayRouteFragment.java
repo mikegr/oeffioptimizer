@@ -1,5 +1,6 @@
 package com.mintplex.oeffioptimizer;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import android.content.res.Resources;
@@ -21,6 +22,13 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.SystemService;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
+import com.mintplex.oeffioptimizer.model.Connections;
+import com.mintplex.oeffioptimizer.model.Exitinfo;
+import com.mintplex.oeffioptimizer.model.Haltestellen;
+import com.mintplex.oeffioptimizer.model.Lift;
+import com.mintplex.oeffioptimizer.model.Steige;
 import com.mintplex.oeffioptimizer.routing.Legs;
 import com.mintplex.oeffioptimizer.routing.Mode;
 import com.mintplex.oeffioptimizer.routing.Points;
@@ -54,10 +62,45 @@ public class DisplayRouteFragment extends AbstractFragment {
 	@ViewById(R.id.fragment_displayroute_to)
 	TextView to;
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		try {
+			DatabaseHelper helper = OpenHelperManager.getHelper(getActivity(),
+					DatabaseHelper.class);
+			steigeDao = helper.getSteigeDao();
+			haltestellenDao = helper
+					.getHaltestellenDao();
+			connDao = helper.getConnectionsDao();
+			exitinfoDao = helper.getExitinfoDao();
+			liftDao = helper.getLiftDao();
+			
+		} catch (Exception e) {
+			Log.e("Set up DB failed", e);
+		}
+	}
+	
+	Dao<Steige, Integer> steigeDao;
+	Dao<Haltestellen, Integer> haltestellenDao;
+	Dao<Connections, Integer> connDao;
+	Dao<Exitinfo, Integer> exitinfoDao;
+	Dao<Lift, Integer> liftDao;
+	
+	
 	@AfterViews
 	public void afterViews() {
+		try {
+			setupUI();
+		} catch (Exception e) {
+			Log.e("setup UI failed", e);
+		}
+	}
+		
+	private static final String FK_STEIG_ID = "FK_STEIG_ID";
+	private static final String SYMBOLS = "SYMBOLS";
+	
+	private void setupUI() throws SQLException {
 		List<Legs> legs = trip.getLegs();
-
 		String firstStop = legs.get(0).getPoints().get(0).getName();
 		List<Points> lastPoints = legs.get(legs.size() - 1).getPoints();
 		String lastStop = lastPoints.get(lastPoints.size() - 1).getName();
@@ -71,8 +114,17 @@ public class DisplayRouteFragment extends AbstractFragment {
 			Legs leg = legs.get(i);
 			List<Points> points = leg.getPoints();
 			Points startPoint = points.get(0);
+			Points transferFrom = points.get(1);
+
 			Mode mode = leg.getMode();
 			addHeader(startPoint, mode, true);
+
+			Haltestellen fromHaltestelle = haltestellenDao.queryForEq("DIVA",
+					transferFrom.getRef().getId()).get(0);
+			Steige fromSteig = steigeDao.queryBuilder().where()
+					.eq("STEIG_ID", fromHaltestelle.id).and()
+					.eq("STEIG", transferFrom.getRef().getPlatform())
+					.queryForFirst();
 
 			if (i < (legs.size() - 1)) {
 				Legs next = legs.get(i + 1);
@@ -80,24 +132,52 @@ public class DisplayRouteFragment extends AbstractFragment {
 				View transferContainer = inflater.inflate(
 						R.layout.displayroute_transfer, null);
 
-				FrameLayout blockContainer = (FrameLayout) transferContainer
-						.findViewById(R.id.displayroute_tranfer_back);
+				Points transferTo = next.getPoints().get(0);
 
-				View block = inflater.inflate(
-						R.layout.displayroute_transferblock, null);
-				Utils.t(block, R.id.displayroute_tranferblock_text,
-						"Hinten einsteigen");
+				Connections con = null;
+				try {
+					Haltestellen toHaltestelle = haltestellenDao.queryForEq(
+							"DIVA", transferTo.getRef().getId()).get(0);
 
-				c(block, R.id.displayroute_tranferblock_top, mode.getNumber());
+					Steige toSteig = steigeDao.queryBuilder().where()
+							.eq("STEIG_ID", toHaltestelle.id).and()
+							.eq("STEIG", transferTo.getRef().getPlatform())
+							.queryForFirst();
 
-				c(block, R.id.displayroute_tranferblock_bottom, next.getMode()
-						.getNumber());
+					con = connDao.queryBuilder().where()
+							.eq("FK_STEIG_ID", Long.toString(fromSteig.id)).and()
+							.eq("TRANSFER_ID", Long.toString(toSteig.id))
+							.queryForFirst();
 
-				blockContainer.addView(block);
+				} catch (SQLException e) {
+					Log.e("Find connection failed", e);
+				}
+				if (con != null) {
+					if (con.isFront()) {
+						FrameLayout blockContainer = (FrameLayout) transferContainer
+								.findViewById(R.id.displayroute_tranfer_front);
+						fillTranferBlock(blockContainer, "Vorne einsteigen",
+								leg, next);
+					}
+					if (con.isMiddle()) {
+						FrameLayout blockContainer = (FrameLayout) transferContainer
+								.findViewById(R.id.displayroute_tranfer_middle);
+						fillTranferBlock(blockContainer, "Mitte einsteigen",
+								leg, next);
 
+					}
+					if (con.isBack()) {
+						FrameLayout blockContainer = (FrameLayout) transferContainer
+								.findViewById(R.id.displayroute_tranfer_back);
+						fillTranferBlock(blockContainer, "Hinten einsteigen",
+								leg, next);
+
+					}
+				}
 				container.addView(transferContainer);
 
 			} else {
+
 				View endstation = inflater.inflate(
 						R.layout.displayroute_endstation, null);
 				flipper = (ViewFlipper) endstation
@@ -122,57 +202,62 @@ public class DisplayRouteFragment extends AbstractFragment {
 						}
 					}
 				});
-				
-				for(int p = 0; p < 3; p++) {
-					LinearLayout box = (LinearLayout) inflater.inflate(R.layout.displayroute_endstation_block, null);
-					switch(p) {
+
+				String steigId = Long.toString(fromSteig.id);
+
+				List<Exitinfo> frontExitInfos = exitinfoDao.queryBuilder()
+						.where().eq(FK_STEIG_ID, steigId).and()
+						.like(SYMBOLS, "%V%").query();
+				List<Exitinfo> middleExitInfos = exitinfoDao.queryBuilder()
+						.where().eq(FK_STEIG_ID, steigId).and()
+						.like(SYMBOLS, "%M%").query();
+				List<Exitinfo> backExitInfos = exitinfoDao.queryBuilder()
+						.where().eq(FK_STEIG_ID, steigId).and()
+						.like(SYMBOLS, "%H%").query();
+
+				List<Connections> frontConns = connDao.queryBuilder().where()
+						.eq(FK_STEIG_ID, steigId).and().like(SYMBOLS, "%V%")
+						.query();
+				List<Connections> middleConns = connDao.queryBuilder().where()
+						.eq(FK_STEIG_ID, steigId).and().like(SYMBOLS, "%M%")
+						.query();
+				List<Connections> backConns = connDao.queryBuilder().where()
+						.eq(FK_STEIG_ID, steigId).and().like(SYMBOLS, "%H%")
+						.query();
+
+				List<Lift> frontLifts = liftDao.queryBuilder().where()
+						.eq(FK_STEIG_ID, steigId).and().like(SYMBOLS, "%V%")
+						.query();
+				List<Lift> middleLifts = liftDao.queryBuilder().where()
+						.eq(FK_STEIG_ID, steigId).and().like(SYMBOLS, "%M%")
+						.query();
+				List<Lift> backLifts = liftDao.queryBuilder().where()
+						.eq(FK_STEIG_ID, steigId).and().like(SYMBOLS, "%H%")
+						.query();
+
+				for (int p = 0; p < 3; p++) {
+					LinearLayout box = (LinearLayout) inflater.inflate(
+							R.layout.displayroute_endstation_block, null);
+					switch (p) {
 					case 0:
-						a(box, "Liechtensteinstraße");
-						a(box, "Hohenstaufengasse");
-						con(box, "<b>40A</b> Richtung Döblinger Friedhof");
+						addLifts(box, frontLifts);
+						addConnections(box, frontConns);
+						addExitinfos(box, frontExitInfos);
 						break;
-					case 1: 
+					case 1:
+						addLifts(box, middleLifts);
+						addConnections(box, middleConns);
+						addExitinfos(box, middleExitInfos);
 						break;
 					case 2:
-						
-						con(box, "<b>Lift</b>");
-						
-						a(box, "Währinger Straße");
-						a(box, "Universitätsring/Universität");
-						a(box, "Mölker Bastei");
-						a(box, "Schottengasse");
-						a(box, "Universitätsring");
-						a(box, "Schottengasse");
-						a(box, "Währinger Straße");
-						
-						con(box, "<b>37</b> Richtung Hohe Warte");
-						con(box, "<b>38</b> Richtung Grinzing");
-						con(box, "<b>40</b> Richtung Herbeckstraße");
-						con(box, "<b>41</b> Richtung Pötzleinsdorf");
-						con(box, "<b>42</b> Richtung Antonigasse");
-						con(box, "<b>71</b> Richtung Zentralfriedhof, 3. Tor");
-						con(box, "<b>D</b> Richtung Alfred-Adler-Straße");
-						con(box, "<b>1</b> Richtung Stefan-Fadinger-Platz");
-						con(box, "<b>43</b> Richtung Neuwaldegg");
-						con(box, "<b>44</b> Richtung Dornbach, Güpferlingstraße");
-						con(box, "<b>D</b> Richtung Beethovengasse");
-						con(box, "<b>1</b> Richtung Prater Hauptallee");
-						con(box, "Vienna Ring Tram");
-						con(box, "<b>71</b> Richtung Börse");
-						con(box, "<b>1A</b> Richtung Stephansplatz");
-						con(box, "<b>N25</b> Richtung Großfeldsiedlung");
-						con(box, "<b>N41</b> Richtung Pötzleinsdorf");
-						con(box, "<b>N43</b> Richtung Neuwaldegg");
-						con(box, "<b>N60</b> Richtung Maurer Hauptplatz");
-						con(box, "<b>N66</b> Richtung Liesing");
-						con(box, "<b>N38</b> Richtung Grinzing");
-
-						
+						addLifts(box, backLifts);
+						addConnections(box, backConns);
+						addExitinfos(box, backExitInfos);
 						break;
 					}
 					flipper.addView(box);
 				}
-				
+
 				container.addView(endstation);
 
 			}
@@ -180,6 +265,40 @@ public class DisplayRouteFragment extends AbstractFragment {
 				addHeader(leg.getLastPoint(), mode, false);
 			}
 		}
+
+	}
+
+	private void addConnections(LinearLayout box, List<Connections> conns) {
+		for (Connections con : conns) {
+			Steige transfer = con.transferId;
+			con(box, transfer.linienName + " " + transfer.richtungName);
+		}
+	}
+
+	private void addLifts(LinearLayout box, List<Lift> lifts) {
+		if (lifts.size() > 0) {
+			con(box, "Lift");
+		}
+	}
+
+	private void addExitinfos(LinearLayout box, List<Exitinfo> exitInfos) {
+		for (Exitinfo ei : exitInfos) {
+			a(box, ei.fkExitId.name);
+		}
+	}
+
+	private void fillTranferBlock(FrameLayout blockContainer, String string,
+			Legs leg, Legs next) {
+		View block = inflater
+				.inflate(R.layout.displayroute_transferblock, null);
+		Utils.t(block, R.id.displayroute_tranferblock_text, "Hinten einsteigen");
+
+		c(block, R.id.displayroute_tranferblock_top, leg.getMode().getNumber());
+
+		c(block, R.id.displayroute_tranferblock_bottom, next.getMode()
+				.getNumber());
+
+		blockContainer.addView(block);
 
 	}
 

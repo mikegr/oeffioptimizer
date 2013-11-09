@@ -11,18 +11,26 @@ package com.mintplex.oeffioptimizer.model;
 
 import android.content.Context;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.orm.SugarRecord;
 
 /**
  * Created by mike on 04.09.13.
  */
-public class Lift extends SugarRecord<Lift> {
+@DatabaseTable(tableName="lifts")
+public class Lift {
 
-    public Lift(Context context) {
-        super(context);
+    public Lift() {
+        super();
     }
 
-    public long id;
+    @DatabaseField(columnName="fk_steig_id")
+    public long fkSteigId;
+    
+    @DatabaseField(columnName="symbols")
     public String symbols;
-
+    
+    @DatabaseField(columnName="hint")
+    public String hint;
 }
