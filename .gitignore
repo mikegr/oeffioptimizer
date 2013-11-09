@@ -6,3 +6,4 @@ local.properties
 .gradle
 bin
 *.iml
+/.apt_generated
