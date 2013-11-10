@@ -46,7 +46,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	public Dao<Haltestellen, Integer> getHaltestellenDao() throws SQLException {
 		if (haltestellenDao == null) {
-			haltestellenDao = getDao(Haltestellen.class);
+			haltestellenDao = (Dao<Haltestellen, Integer>) getDao(Haltestellen.class);
 		}
 		return haltestellenDao;
 	}
@@ -55,7 +55,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	public Dao<Steige, Integer> getSteigeDao() throws SQLException {
 		if (steigeDao == null) {
-			steigeDao = getDao(Steige.class);
+			steigeDao = (Dao<Steige, Integer>) getDao(Steige.class);
 		}
 		return steigeDao;
 	}
@@ -64,7 +64,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	public Dao<Connections, Integer> getConnectionsDao() throws SQLException {
 		if (connectionsDao == null) {
-			connectionsDao = getDao(Connections.class);
+			connectionsDao = (Dao<Connections, Integer>) getDao(Connections.class);
 		}
 		return connectionsDao;
 	}
@@ -72,7 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	Dao<Exitinfo, Integer> exitinfoDao;
 	public Dao<Exitinfo, Integer> getExitinfoDao() throws SQLException {
 		if (exitinfoDao == null) {
-			exitinfoDao = getDao(Exitinfo.class);
+			exitinfoDao = (Dao<Exitinfo, Integer>) getDao(Exitinfo.class);
 		}
 		return exitinfoDao;
 	}
@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	Dao<Lift, Integer> liftDao;
 	public Dao<Lift, Integer> getLiftDao() throws SQLException {
 		if (liftDao == null) {
-			liftDao = getDao(Lift.class);
+			liftDao = (Dao<Lift, Integer>) getDao(Lift.class);
 		}
 		return liftDao;
 	}

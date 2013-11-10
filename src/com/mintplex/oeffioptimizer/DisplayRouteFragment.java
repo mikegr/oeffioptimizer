@@ -185,7 +185,7 @@ public class DisplayRouteFragment extends AbstractFragment {
 						.findViewById(R.id.displayroute_endstation_flipper);
 				RadioGroup rg = (RadioGroup) endstation
 						.findViewById(R.id.displayroute_endstation_position);
-
+				rg.setBackgroundResource(getLineBackground(mode.getNumber()));
 				rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 					@Override
