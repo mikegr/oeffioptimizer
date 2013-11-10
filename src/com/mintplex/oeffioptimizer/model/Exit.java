@@ -21,9 +21,9 @@ import com.orm.SugarRecord;
 
 @DatabaseTable(tableName="exits")
 public class Exit extends SugarRecord<Exit> {
-	@DatabaseField(columnName="exit_id", id=true)
+	@DatabaseField(columnName="EXIT_ID", id=true)
     public long id;
-	@DatabaseField(columnName="exit_name")
+	@DatabaseField(columnName="EXIT_NAME")
     public String name;
 
 

@@ -9,13 +9,10 @@
  */
 package com.mintplex.oeffioptimizer.model;
 
-import android.content.Context;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.orm.SugarRecord;
 
-@DatabaseTable
+@DatabaseTable(tableName="exitinfos")
 public class Exitinfo {
 
 	public Exitinfo() {
@@ -25,13 +22,13 @@ public class Exitinfo {
 //	@DatabaseField(columnName="id")
 //	public long id;
 	
-	@DatabaseField(columnName="fk_steig_id")
+	@DatabaseField(columnName="FK_STEIG_ID")
 	public long fkSteigId;
 	
-	@DatabaseField(columnName="fk_exit_id", foreign=true)
+	@DatabaseField(columnName="FK_EXIT_ID", foreign=true)
 	public Exit fkExitId;
-	@DatabaseField(columnName="symbols")
+	@DatabaseField(columnName="SYMBOLS")
 	public String symbols;
-	@DatabaseField(columnName="hint")
+	@DatabaseField(columnName="HINT")
 	public String hint;
 }

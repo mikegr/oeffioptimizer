@@ -119,12 +119,7 @@ public class DisplayRouteFragment extends AbstractFragment {
 			Mode mode = leg.getMode();
 			addHeader(startPoint, mode, true);
 
-			Haltestellen fromHaltestelle = haltestellenDao.queryForEq("DIVA",
-					transferFrom.getRef().getId()).get(0);
-			Steige fromSteig = steigeDao.queryBuilder().where()
-					.eq("STEIG_ID", fromHaltestelle.id).and()
-					.eq("STEIG", transferFrom.getRef().getPlatform())
-					.queryForFirst();
+			Steige fromSteig = steigFromPoint(transferFrom);
 
 			if (i < (legs.size() - 1)) {
 				Legs next = legs.get(i + 1);
@@ -136,17 +131,11 @@ public class DisplayRouteFragment extends AbstractFragment {
 
 				Connections con = null;
 				try {
-					Haltestellen toHaltestelle = haltestellenDao.queryForEq(
-							"DIVA", transferTo.getRef().getId()).get(0);
-
-					Steige toSteig = steigeDao.queryBuilder().where()
-							.eq("STEIG_ID", toHaltestelle.id).and()
-							.eq("STEIG", transferTo.getRef().getPlatform())
-							.queryForFirst();
+					Steige toSteig = steigFromPoint(transferTo);
 
 					con = connDao.queryBuilder().where()
 							.eq("FK_STEIG_ID", Long.toString(fromSteig.id)).and()
-							.eq("TRANSFER_ID", Long.toString(toSteig.id))
+							.eq("FK_TRANSFER_ID", Long.toString(toSteig.id))
 							.queryForFirst();
 
 				} catch (SQLException e) {
@@ -287,11 +276,11 @@ public class DisplayRouteFragment extends AbstractFragment {
 		}
 	}
 
-	private void fillTranferBlock(FrameLayout blockContainer, String string,
+	private void fillTranferBlock(FrameLayout blockContainer, String text,
 			Legs leg, Legs next) {
 		View block = inflater
 				.inflate(R.layout.displayroute_transferblock, null);
-		Utils.t(block, R.id.displayroute_tranferblock_text, "Hinten einsteigen");
+		Utils.t(block, R.id.displayroute_tranferblock_text, text);
 
 		c(block, R.id.displayroute_tranferblock_top, leg.getMode().getNumber());
 
@@ -417,4 +406,14 @@ public class DisplayRouteFragment extends AbstractFragment {
 		return R.color.white;
 	}
 
+	private Steige steigFromPoint(Points point) throws SQLException {
+		Haltestellen haltestelle = haltestellenDao.queryForEq("DIVA",
+				point.getRef().getId()).get(0);
+		Steige steig = steigeDao.queryBuilder().where()
+				.eq("FK_HALTESTELLEN_ID", haltestelle.id).and()
+				.eq("STEIG", point.getRef().getPlatform())
+				.queryForFirst();
+		return steig;
+	}
+	
 }

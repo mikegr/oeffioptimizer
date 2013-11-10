@@ -25,12 +25,12 @@ public class Lift {
         super();
     }
 
-    @DatabaseField(columnName="fk_steig_id")
+    @DatabaseField(columnName="FK_STEIG_ID")
     public long fkSteigId;
     
-    @DatabaseField(columnName="symbols")
+    @DatabaseField(columnName="SYMBOLS")
     public String symbols;
     
-    @DatabaseField(columnName="hint")
+    @DatabaseField(columnName="HINT")
     public String hint;
 }

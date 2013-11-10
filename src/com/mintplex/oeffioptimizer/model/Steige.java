@@ -21,40 +21,32 @@ import com.orm.SugarRecord;
 @DatabaseTable(tableName="steige")
 public class Steige  {
 
-    /*
-    public String STEIG_ID;
-    public String FK_LINIEN_ID;
-    public String FK_HALTESTELLEN_ID;
-
-    public String RICHTUNG;
-    public String REIHENFOLGE;
-    public String RBL_NUMMER;
-    public String BEREICH;
-    public String STEIG;
-    public String STEIG_WGS84_LAT;
-    public String STEIG_WGS84_LON;
-    public String STAND;
-    */
-	
-	@DatabaseField(id=true, columnName="steig_id")
+	@DatabaseField(id=true, columnName="STEIG_ID")
 	public long id;
 	
-	@DatabaseField(columnName="linien_name")
+	@DatabaseField(columnName="LINIEN_NAME")
     public String linienName;
 	
-	@DatabaseField(columnName="haltestellen_name")
+	@DatabaseField(columnName="HALTESTELLEN_NAME")
     public String haltestellenName;
 	
-	@DatabaseField(columnName="richtung_name")
+	@DatabaseField(columnName="RICHTUNG_NAME")
     public String richtungName;
 	
+	@DatabaseField(columnName="RICHTUNG")
     public String richtung;
+	
+	@DatabaseField(columnName="FK_LINIEN_ID")
     public long fkLinienId;
     
+	@DatabaseField(columnName="FK_HALTESTELLEN_ID", foreign=true)
     public Haltestellen fkHaltestellenId;
     
-    @DatabaseField(columnName="reihenfolge")
+    @DatabaseField(columnName="REIHENFOLGE")
     public int reihenfolge;
+    
+    @DatabaseField(columnName="STEIG")
+    public String steig;
 
     public Steige() {
         super();

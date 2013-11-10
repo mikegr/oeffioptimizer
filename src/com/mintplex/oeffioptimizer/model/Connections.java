@@ -15,19 +15,19 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * Created by mike on 03.09.13.
  */
-@DatabaseTable(tableName="co")
+@DatabaseTable(tableName="connections")
 public class Connections {
 
-	@DatabaseField(columnName="connection_id", id=true)
+	@DatabaseField(columnName="ID", id=true)
     public long id;
-	@DatabaseField(columnName="fk_steig_id")
+	@DatabaseField(columnName="FK_STEIG_ID")
     public long fkSteigId;
-	@DatabaseField(columnName="transfer_id", foreign=true)
+	@DatabaseField(columnName="FK_TRANSFER_ID", foreign=true)
     public Steige transferId;
 	
-    @DatabaseField(columnName="symbols")
+    @DatabaseField(columnName="SYMBOLS")
     public String symbols;
-    @DatabaseField(columnName="hint")
+    @DatabaseField(columnName="HINT")
     public String hint;
 
     public Connections() {

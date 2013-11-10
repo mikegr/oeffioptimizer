@@ -23,7 +23,7 @@ import com.orm.SugarApp;
  */
 public class App extends SugarApp {
 
-    public static String DB_NAME = "oeffioptimizer.db";
+    public static String DB_NAME = "routing.db";
 
 
     @Override
