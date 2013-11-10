@@ -118,13 +118,24 @@ public class DisplayRouteFragment extends AbstractFragment {
 			Points transferFrom = points.get(1);
 
 			Mode mode = leg.getMode();
-			addHeader(startPoint, mode, true);
-
+			
+			if ("99".equals(mode.getType())) { // Fußweg
+				mode.setDestination(points.get(1).getName());
+				addFootpath(startPoint, mode);
+				continue;
+			}
+			
 			Steige fromSteig = steigFromPoint(transferFrom);
-
+			addHeader(startPoint, mode, true);
+			
+			
 			if (i < (legs.size() - 1)) {
+				
 				Legs next = legs.get(i + 1);
 
+				
+				
+				
 				View transferContainer = inflater.inflate(
 						R.layout.displayroute_transfer, null);
 
@@ -338,6 +349,17 @@ public class DisplayRouteFragment extends AbstractFragment {
 		container.addView(header);
 	}
 
+	
+	
+	private void addFootpath(Points point, Mode mode) {
+		String destination = mode.getDestination();
+		String station = point.getName();
+		View header = inflater.inflate(R.layout.displayroute_fussweg, null);
+		Utils.t(header, R.id.displayroute_station_name, station);
+		Utils.t(header, R.id.displayroute_station_direction, destination);
+		container.addView(header);
+	}
+	
 	public void c(View view, int resId, String line) {
 		View found = view.findViewById(resId);
 		int bg = getLineBackground(line);

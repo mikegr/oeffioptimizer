@@ -40,7 +40,7 @@ public class DisplayRouteActivity extends AbstractActivity {
 	public void afterInject() {
 		if (trip == null) {
 			try {
-				InputStream is = getAssets().open("test.json");
+				InputStream is = getAssets().open("test_fussweg.json");
 				Gson gson = new Gson();
 				Routing routing = gson.fromJson(new InputStreamReader(is, Charset.defaultCharset()), Routing.class);
 				trip = routing.getTrips().get(0).getTrip();
