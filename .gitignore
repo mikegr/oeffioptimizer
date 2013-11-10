@@ -7,3 +7,4 @@ local.properties
 bin
 *.iml
 /.apt_generated
+*.keystore
