@@ -25,6 +25,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.mintplex.oeffioptimizer.model.Connections;
+import com.mintplex.oeffioptimizer.model.Exit;
 import com.mintplex.oeffioptimizer.model.Exitinfo;
 import com.mintplex.oeffioptimizer.model.Haltestellen;
 import com.mintplex.oeffioptimizer.model.Lift;
@@ -258,21 +259,31 @@ public class DisplayRouteFragment extends AbstractFragment {
 	}
 
 	private void addConnections(LinearLayout box, List<Connections> conns) {
+		if (conns == null) return;
 		for (Connections con : conns) {
 			Steige transfer = con.transferId;
-			con(box, transfer.linienName + " " + transfer.richtungName);
+			if (transfer != null) {
+				con(box, transfer.linienName + " " + transfer.richtungName);	
+			}
+			else {
+				con(box, "Emtpy con: " + con.id);
+			}
 		}
 	}
 
 	private void addLifts(LinearLayout box, List<Lift> lifts) {
-		if (lifts.size() > 0) {
+		if (lifts != null && lifts.size() > 0) {
 			con(box, "Lift");
 		}
 	}
 
 	private void addExitinfos(LinearLayout box, List<Exitinfo> exitInfos) {
+		if (exitInfos == null) return;
 		for (Exitinfo ei : exitInfos) {
-			a(box, ei.fkExitId.name);
+			Exit exit = ei.fkExitId;
+			if (exit != null) {
+				a(box, exit.name);	
+			}
 		}
 	}
 

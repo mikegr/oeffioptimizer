@@ -25,7 +25,7 @@ public class Exitinfo {
 	@DatabaseField(columnName="FK_STEIG_ID")
 	public long fkSteigId;
 	
-	@DatabaseField(columnName="FK_EXIT_ID", foreign=true)
+	@DatabaseField(columnName="FK_EXIT_ID", foreign=true, foreignAutoRefresh=true)
 	public Exit fkExitId;
 	@DatabaseField(columnName="SYMBOLS")
 	public String symbols;

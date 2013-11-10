@@ -22,7 +22,7 @@ public class Connections {
     public long id;
 	@DatabaseField(columnName="FK_STEIG_ID")
     public long fkSteigId;
-	@DatabaseField(columnName="FK_TRANSFER_ID", foreign=true)
+	@DatabaseField(columnName="FK_TRANSFER_ID", foreign=true, foreignAutoRefresh=true)
     public Steige transferId;
 	
     @DatabaseField(columnName="SYMBOLS")
