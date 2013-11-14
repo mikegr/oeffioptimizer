@@ -15,13 +15,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.orm.SugarApp;
+import android.app.Application;
 
 /**
  * Created by mike on 03.09.13.
  */
-public class App extends SugarApp {
+public class App extends Application {
 
     public static String DB_NAME = "routing.db";
 

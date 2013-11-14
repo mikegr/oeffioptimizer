@@ -9,25 +9,18 @@
  */
 package com.mintplex.oeffioptimizer;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mintplex.oeffioptimizer.model.Connections;
 import com.mintplex.oeffioptimizer.model.Exitinfo;
 import com.mintplex.oeffioptimizer.model.Lift;
-import com.mintplex.oeffioptimizer.model.Steige;
-import com.orm.SugarRecord;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by mike on 03.09.13.
@@ -82,21 +75,6 @@ public class HaltestellenFragment extends Fragment {
 			return connections.size() + lifts.size() + exits.size();
 		}
 
-		public SugarRecord<?> getItem(int childPosition) {
-			/*
-			if (childPosition < connections.size()) {
-				return connections.get(childPosition);
-			}
-			if (childPosition < connections.size() + exits.size()) {
-				return exits.get(childPosition - connections.size());
-			}
-			
-			if (childPosition < connections.size() + exits.size() + lifts.size()) {
-				return lifts.get(childPosition - connections.size() - exits.size());
-			}
-			*/
-			return null;
-		}
     }
 
 

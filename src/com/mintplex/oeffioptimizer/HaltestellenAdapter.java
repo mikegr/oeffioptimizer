@@ -9,25 +9,20 @@
  */
 package com.mintplex.oeffioptimizer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.mintplex.oeffioptimizer.HaltestellenFragment.SteigInfo;
-import com.mintplex.oeffioptimizer.model.Connections;
-import com.mintplex.oeffioptimizer.model.Exit;
-import com.mintplex.oeffioptimizer.model.Exitinfo;
-import com.mintplex.oeffioptimizer.model.Lift;
-import com.mintplex.oeffioptimizer.model.Steige;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.mintplex.oeffioptimizer.HaltestellenFragment.SteigInfo;
+import com.mintplex.oeffioptimizer.model.Connections;
+import com.mintplex.oeffioptimizer.model.Exitinfo;
+import com.mintplex.oeffioptimizer.model.Lift;
+import com.mintplex.oeffioptimizer.model.Steige;
 
 public class HaltestellenAdapter extends BaseExpandableListAdapter implements ExpandableListAdapter {
 
@@ -83,24 +78,26 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 		SteigInfo steigInfo = data.get(s);
 		return steigInfo;
 	}
+	
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		
-		SteigInfo steigInfo = getSteigInfo(groupPosition);
-		return steigInfo.getItem(childPosition);
+		return null;
+		//SteigInfo steigInfo = getSteigInfo(groupPosition);
+		//return steigInfo.getItem(childPosition);
 	}
 	
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
-		SteigInfo steigInfo = getSteigInfo(groupPosition);
-		return steigInfo.getItem(childPosition).getId();
+		return 0;
+		//SteigInfo steigInfo = getSteigInfo(groupPosition);
+		//return steigInfo.getItem(childPosition).getId();
 	}
 	
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		SteigInfo steigInfo = getSteigInfo(groupPosition);
-		Object child = steigInfo.getItem(childPosition);
+		Object child = null; //steigInfo.getItem(childPosition);
 		if (child instanceof Connections) {
 			Connections c = (Connections) child;
 			if (convertView == null) { 
@@ -170,7 +167,7 @@ public class HaltestellenAdapter extends BaseExpandableListAdapter implements Ex
 	@Override
 	public int getChildType(int groupPosition, int childPosition) {
 		SteigInfo steigInfo = getSteigInfo(groupPosition);
-		Object child = steigInfo.getItem(childPosition);
+		Object child = null; //steigInfo.getItem(childPosition);
 		if (child instanceof Connections) {
 			return 0;
 		}

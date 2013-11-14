@@ -13,14 +13,13 @@ import android.content.Context;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.orm.SugarRecord;
 
 /**
  * Created by mike on 03.09.13.
  */
 
 @DatabaseTable(tableName="exits")
-public class Exit extends SugarRecord<Exit> {
+public class Exit {
 	@DatabaseField(columnName="EXIT_ID", id=true)
     public long id;
 	@DatabaseField(columnName="EXIT_NAME")
@@ -28,8 +27,5 @@ public class Exit extends SugarRecord<Exit> {
 
 
 	public Exit() {}
-	
-    public Exit(Context context) {
-        super(context);
-    }
+
 }

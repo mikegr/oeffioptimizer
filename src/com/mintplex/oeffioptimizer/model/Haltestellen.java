@@ -9,11 +9,8 @@
  */
 package com.mintplex.oeffioptimizer.model;
 
-import android.content.Context;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.orm.SugarRecord;
 
 
 @DatabaseTable(tableName="haltestellen")

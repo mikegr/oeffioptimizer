@@ -9,18 +9,18 @@
  */
 package com.mintplex.oeffioptimizer;
 
-import com.mintplex.oeffioptimizer.HaltestellenFragment.SteigInfo;
-import com.mintplex.oeffioptimizer.model.Connections;
-import com.mintplex.oeffioptimizer.model.Exitinfo;
-import com.mintplex.oeffioptimizer.model.Lift;
-import com.mintplex.oeffioptimizer.model.Steige;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.mintplex.oeffioptimizer.HaltestellenFragment.SteigInfo;
+import com.mintplex.oeffioptimizer.model.Connections;
+import com.mintplex.oeffioptimizer.model.Exitinfo;
+import com.mintplex.oeffioptimizer.model.Lift;
+import com.mintplex.oeffioptimizer.model.Steige;
 
 public class SteigInfoAdapter extends BaseAdapter {
 
@@ -43,7 +43,7 @@ public class SteigInfoAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return steigInfo.getItem(position);
+		return null; //steigInfo.getItem(position);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class SteigInfoAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Object child = steigInfo.getItem(position);
+		Object child = null; // steigInfo.getItem(position);
 		return getView(inflater, position, convertView, parent, child);
 	}
 

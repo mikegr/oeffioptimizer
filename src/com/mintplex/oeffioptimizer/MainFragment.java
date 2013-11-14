@@ -128,6 +128,7 @@ public class MainFragment extends Fragment {
 	}
 
 	private void setRecentList() {
+		/*
 		List<Recent> recent = Recent.find(Recent.class, null, null, null, "last_access DESC", null);
 		
 		recentList.setAdapter(new ArrayAdapter<Recent>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, recent));
@@ -141,6 +142,7 @@ public class MainFragment extends Fragment {
 				}
 			}
 		});
+		*/
 	}
 
 	public static MainFragment create() {

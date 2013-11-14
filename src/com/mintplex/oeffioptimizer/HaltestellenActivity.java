@@ -9,22 +9,9 @@
  */
 package com.mintplex.oeffioptimizer;
 
-import java.util.List;
-
-import com.mintplex.oeffioptimizer.model.Haltestellen;
-import com.mintplex.oeffioptimizer.model.Recent;
-import com.orm.SugarDb;
-import com.orm.SugarRecord;
-
-import android.*;
-import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
 
 /**
  * Created by mike on 03.09.13.
