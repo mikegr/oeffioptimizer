@@ -3,11 +3,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="40dp"
+    android:paddingLeft="16dp"
      >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/displayroute_transfer_train"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/train" />
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="37dp"
+        android:layout_marginLeft="37dp"
          >
 
         <FrameLayout

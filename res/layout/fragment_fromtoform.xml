@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/ad" />
+    
     <AutoCompleteTextView
         android:id="@+id/fragment_fromtoform_from_actv"
         android:layout_width="match_parent"
@@ -30,7 +34,10 @@
     <ListView
         android:id="@+id/fragment_fromtoform_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
     </ListView>
+
+
 
 </LinearLayout>

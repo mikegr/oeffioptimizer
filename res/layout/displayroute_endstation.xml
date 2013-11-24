@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="40dp" >
+    android:paddingLeft="16dp"
+    >
 
     <ImageView
         android:id="@+id/imageView1"
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="horizontal"
-        android:paddingLeft="37dp" >
+        android:layout_marginLeft="37dp" >
 
         <RadioButton
             android:id="@+id/displayroute_endstation_front"

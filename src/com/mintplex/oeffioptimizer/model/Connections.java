@@ -34,12 +34,15 @@ public class Connections {
     }
 
     public boolean isFront(){
-    	return symbols.contains("V");
+    	if (symbols != null) return symbols.contains("V");
+    	return false;
     }
     public boolean isMiddle() {
-    	return symbols.contains("M");
+    	if (symbols != null) return symbols.contains("M");
+    	return false;
     }
     public boolean isBack() {
-    	return symbols.contains("H");
+    	if (symbols != null) return symbols.contains("H");
+    	return false;
     }
 }

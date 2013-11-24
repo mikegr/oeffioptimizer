@@ -2,16 +2,21 @@ package com.mintplex.oeffioptimizer;
 
 import java.net.URL;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.mintplex.oeffioptimizer.model.Haltestellen;
 import com.mintplex.oeffioptimizer.routing.Routing;
 
 @EActivity(R.layout.activity_default)
+@OptionsMenu(R.menu.activity_main)
 public class FromToFormActivity extends AbstractActivity {
 
 	
@@ -23,6 +28,9 @@ public class FromToFormActivity extends AbstractActivity {
 	}
 
 	public void searchRoute(final Haltestellen fromData, final Haltestellen toData) {
+		
+		final ProgressDialog dlg = ProgressDialog.show(this, "Lade Routen...", "Lade...");
+		
 		new AsyncTask<Void, Void, Routing>() {
 			@Override
 			protected Routing doInBackground(Void... params) {
@@ -41,6 +49,7 @@ public class FromToFormActivity extends AbstractActivity {
 				
 			}
 			protected void onPostExecute(Routing result) {
+				dlg.dismiss();
 				if (result == null) {
 					Toast.makeText(FromToFormActivity.this, "No routing data", Toast.LENGTH_LONG).show();
 					return;
@@ -57,5 +66,14 @@ public class FromToFormActivity extends AbstractActivity {
 		
 	}
 	
+	@OptionsItem(R.id.menu_feedback)
+	public void onFeedback() {
+		Intent i = new Intent(Intent.ACTION_SEND);
+        i.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {"michael.greifeneder@gmail.com"});
+        i.setType("text/message");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Feedback zu ÖffiOptimizer");
+        i.putExtra(Intent.EXTRA_TEXT, "Mir gefällt.../Mir fehlt.../Falsche Daten bei Verbindung...\n\n");
+        startActivity(Intent.createChooser(i, "Feedback geben"));   
+	}
 
 }

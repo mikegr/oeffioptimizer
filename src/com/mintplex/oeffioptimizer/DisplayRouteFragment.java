@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.FragmentArg;
@@ -87,11 +90,20 @@ public class DisplayRouteFragment extends AbstractFragment {
 	Dao<Exitinfo, Integer> exitinfoDao;
 	Dao<Lift, Integer> liftDao;
 	
-	
 	@AfterViews
 	public void afterViews() {
 		try {
+			super.loadInterstital();
 			setupUI();
+			super.initAd();
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					displayInterstitial(); 
+					
+				}
+			}, 5000);
 		} catch (Exception e) {
 			Log.e("setup UI failed", e);
 		}
@@ -128,17 +140,19 @@ public class DisplayRouteFragment extends AbstractFragment {
 			Steige fromSteig = steigFromPoint(transferFrom);
 			addHeader(startPoint, mode, true);
 			
+			if (! "1".equals(mode.getType())) { // 1 == U-Bahn
+				continue;
+			}
+
+			
 			
 			if (i < (legs.size() - 1)) {
-				
-				Legs next = legs.get(i + 1);
-
-				
-				
-				
 				View transferContainer = inflater.inflate(
 						R.layout.displayroute_transfer, null);
-
+				
+				Legs next = legs.get(i + 1);
+				
+				
 				Points transferTo = next.getPoints().get(0);
 
 				Connections con = null;
