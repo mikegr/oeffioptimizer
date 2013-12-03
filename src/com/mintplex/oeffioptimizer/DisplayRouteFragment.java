@@ -93,17 +93,9 @@ public class DisplayRouteFragment extends AbstractFragment {
 	@AfterViews
 	public void afterViews() {
 		try {
-			super.loadInterstital();
+			//super.loadInterstital();
 			setupUI();
 			super.initAd();
-			new Handler().postDelayed(new Runnable() {
-				
-				@Override
-				public void run() {
-					displayInterstitial(); 
-					
-				}
-			}, 5000);
 		} catch (Exception e) {
 			Log.e("setup UI failed", e);
 		}
